@@ -1,10 +1,10 @@
 HOME=$(shell pwd)
-MAINVERSION=2.0
+MAINVERSION=2.1
 VERSION=$(shell wget -qO- http://git.haproxy.org/git/haproxy-${MAINVERSION}.git/refs/tags/ | sed -n 's:.*>\(.*\)</a>.*:\1:p' | sed 's/^.//' | sort -rV | head -1)
 ifeq ("${VERSION}","./")
         VERSION="${MAINVERSION}.0"
 endif
-RELEASE=1
+RELEASE=3
 
 all: build
 

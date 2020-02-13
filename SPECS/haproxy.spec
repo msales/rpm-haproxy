@@ -19,7 +19,7 @@ Release: %{release}%{?dist}
 License: GPLv2+
 Group: System Environment/Daemons
 URL: http://www.haproxy.org/
-Source0: http://www.haproxy.org/download/1.8/src/%{name}-%{version}.tar.gz
+Source0: http://www.haproxy.org/download/2.1/src/%{name}-%{version}.tar.gz
 Source1: %{name}.cfg
 %{?el6:Source2: %{name}.init}
 %{?amzn1:Source2: %{name}.init}
@@ -100,7 +100,7 @@ USE_TFO=1
 USE_NS=1
 %endif
 
-%{__make} -j$RPM_BUILD_NCPUS %{?_smp_mflags} CPU="generic" TARGET="linux-glibc" ${systemd_opts} ${pcre_opts} USE_OPENSSL=1 USE_ZLIB=1 ${regparm_opts} ADDINC="%{optflags}" USE_LINUX_TPROXY=1 USE_THREAD=1 USE_TFO=${USE_TFO} USE_NS=${USE_NS} ADDLIB="%{__global_ldflags}"
+%{__make} -j$RPM_BUILD_NCPUS %{?_smp_mflags} CPU="generic" TARGET="linux-glibc" ${systemd_opts} ${pcre_opts} DEFINE='-DMAX_SESS_STKCTR=10' EXTRA_OBJS="contrib/prometheus-exporter/service-prometheus.o" USE_OPENSSL=1 USE_ZLIB=1 ${regparm_opts} ADDINC="%{optflags}" USE_LINUX_TPROXY=1 USE_THREAD=1 USE_TFO=${USE_TFO} USE_NS=${USE_NS} ADDLIB="%{__global_ldflags}"
 
 pushd contrib/halog
 %{__make} ${halog} OPTIMIZE="%{optflags} %{__global_ldflags}"
